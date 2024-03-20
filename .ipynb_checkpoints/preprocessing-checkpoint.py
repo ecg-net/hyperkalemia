@@ -1,14 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 # %%
-
-# %%
 import numpy as np
 import os
 from pathlib import Path
 from tqdm import tqdm
-
-from ecg_utils import (
+from utils.ecg_utils import (
     remove_baseline_wander,
     wavelet_denoise_signal,
     plot_12_lead_ecg,
@@ -16,8 +13,6 @@ from ecg_utils import (
 
 
 # %%
-
-
 def calculate_means_stds(npy_directory, n):
     
     npy_directory = Path(npy_directory)

@@ -4,9 +4,9 @@
 import torch
 from pytorch_lightning import Trainer
 from torch.utils.data import DataLoader
-from datasets import ECGSingleLeadDataset
-from models import EffNet
-from training_models import RegressionModel
+from utils.datasets import ECGSingleLeadDataset
+from utils.models import EffNet
+from utils.training_models import RegressionModel
 
 # This is the path where your data samples are stored.
 data_path = "your/ecg/data/folder"

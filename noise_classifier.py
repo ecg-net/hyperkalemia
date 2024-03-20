@@ -6,9 +6,9 @@ import pandas as pd
 import torch
 from pytorch_lightning import Trainer
 from torch.utils.data import DataLoader
-from datasets import ECGSingleLeadDataset
-from models import EffNet
-from training_models import BinaryClassificationModel
+from utils.datasets import ECGSingleLeadDataset
+from utils.models import EffNet
+from utils.training_models import BinaryClassificationModel
 
 
 def append_noise_predictions_to_manifest(data_path, manifest_path, weights_path):

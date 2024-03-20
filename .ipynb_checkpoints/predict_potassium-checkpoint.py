@@ -4,9 +4,9 @@
 import torch
 from pytorch_lightning import Trainer
 from torch.utils.data import DataLoader
-from datasets import ECGSingleLeadDataset
-from models import EffNet
-from training_models import RegressionModel
+from utils.datasets import ECGSingleLeadDataset
+from utils.models import EffNet
+from utils.training_models import RegressionModel
 
 # This is the path where your data samples are stored.
 data_path = "your/ecg/data/folder"
@@ -32,17 +32,17 @@ test_dl = DataLoader(
     test_ds, num_workers=16, batch_size=512, drop_last=False, shuffle=False
 )
 
+# +
 # Initialize the "backbone", the core model weights that will act on the data.
 backbone = EffNet()
 
-# Pass the backbone to a wrapper from cvair.training_models, like in
-# the training script.
 model = RegressionModel(backbone)
+# -
 
 # We need load the pretrained weights from a file, then initialize the model
 # with them using load_state_dict. If all goes well, the message will say:
 # <All keys matched successfully>
-weights = torch.load("/workspace/imin/ecg_K_regression/wandb/run-20240309_004145-1ro3n5iz/weights/model_best_epoch_val_mae.pt")
+weights = torch.load("model_best_mae_5seconds_length.pt")
 print(model.load_state_dict(weights))
 
 # Initialize a pl.Trainer object (identical to the one in train.py), and
@@ -55,5 +55,7 @@ trainer = Trainer(accelerator="gpu", devices=1)
 # directory, or if there's no Weights & Biases run active, to the directory
 # the script was run in.
 trainer.predict(model, dataloaders=test_dl)
+
+
 
 
