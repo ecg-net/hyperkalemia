@@ -10,12 +10,10 @@ from utils.training_models import RegressionModel
 
 # This is the path where your data samples are stored.
 data_path = "your/ecg/data/folder"
-data_path = "/workspace/data/drives/sdc/ecg_database/apple_watch_study/5seconds_leadI_array_from_cedars_esrd/"
 
 # This is the path where your manifest, containing filenames for inference
 # to be run on, is stored.
 manifest_path = 'your/manifest/path'
-manifest_path="/workspace/imin/applewatch_potassium/5seconds_cedars_leadI_esrd.csv"
 
 # Initialize a dataset that contains the examples you want to run
 # prediction on. We want to inference on the test set, so we copy our
