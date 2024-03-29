@@ -141,7 +141,7 @@ if __name__ == "__main__":
     manifest_path = "/path/to/manifest.csv"  # Manifest file path
     output_path = "path/to/output_path"  # Output path for segmented ECGs
     length = 5  # Length of each segment in seconds
-    steps = 5  # Number of seconds step
+    steps = 1  # Number of seconds step
 
     process_ecg(data_path, manifest_path, output_path, length, steps)
 

@@ -40,7 +40,7 @@ model = RegressionModel(backbone)
 # We need load the pretrained weights from a file, then initialize the model
 # with them using load_state_dict. If all goes well, the message will say:
 # <All keys matched successfully>
-weights = torch.load("model_best_mae_5seconds_length.pt")
+weights = torch.load("model_best_mae_5seconds_length_stratified_sampling.pt")
 print(model.load_state_dict(weights))
 
 # Initialize a pl.Trainer object (identical to the one in train.py), and
