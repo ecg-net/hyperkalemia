@@ -250,6 +250,98 @@ class CedarsDataset(Dataset):
         raise NotImplementedError
 
 
+class ECGDataset(CedarsDataset):
+    def __init__(
+        self,
+        # CedarsDataset params
+        data_path: Union[Path, str],
+        manifest_path: Union[Path, str] = None,
+        split: str = None,
+        labels: Union[List[str], str] = None,
+        update_manifest_func: Callable = None,
+        subsample: float = None,
+        verbose: bool = True,
+        verify_existing: bool = True,
+        drop_na_labels: bool = True,
+        # ECGoDataset params
+        leads: List[str] = None,
+        random_lead: bool = False,  # New parameter for random lead selection
+        data_length: int = 5000,
+        **kwargs,
+    ):
+        """
+        Args:
+            leads: List[str] -- which leads you want passed to the model. Defaults to all 12.
+        """
+
+        super().__init__(
+            data_path=data_path,
+            manifest_path=manifest_path,
+            split=split,
+            labels=labels,
+            update_manifest_func=update_manifest_func,
+            subsample=subsample,
+            verbose=verbose,
+            verify_existing=verify_existing,
+            drop_na_labels=drop_na_labels,
+            **kwargs,
+        )
+
+        self.lead_order = [
+            "I",
+            "II",
+            "III",
+            "aVR",
+            "aVL",
+            "aVF",
+            "V1",
+            "V2",
+            "V3",
+            "V4",
+            "V5",
+            "V6",
+        ]
+        self.leads = leads
+        if self.leads is None:
+            self.leads = self.lead_order
+        if isinstance(self.leads, str):
+            self.leads = [self.leads]
+
+        if "first_lead_only" in kwargs:
+            raise (
+                Exception(
+                    '"first_lead_only" has been deprecated. Please pass leads=["I"] \
+                    instead if you would like to train on only the first lead.'
+                )
+            )
+        
+        self.random_lead = random_lead  # Storing the random_lead attribute
+        
+        self.data_length = data_length
+
+
+    def read_file(self, filepath, row=None):
+        # ECGs are usually stored as .npy files.
+        file = np.load(filepath)
+        if file.shape[0] != 12:
+            file = file.T
+        file = torch.tensor(file).float()
+        
+        # Slice the data to the specified length
+        file = file[:, :self.data_length]
+        
+        if self.random_lead:
+            lead_idx = random.choice(range(12))
+            file = file[lead_idx:lead_idx+1]  # Select the random lead
+        else:
+            channels = [self.lead_order.index(lead) for lead in self.leads]
+            file = file[channels]
+
+
+        # Final shape should ideally be NumLeadsxTime(or NumLeadsxTime depending on the resolution of the ECG)
+        return file
+
+
 class ECGSingleLeadDataset(CedarsDataset):
     def __init__(
         self,

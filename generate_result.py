@@ -48,7 +48,7 @@ def analyze_predictions(filename, noise_threshold=0.5):
 
 if __name__ == "__main__":
     
-    filename='dataloader_0_potassium_predictions.csv'
+    filename='dataloader_0_predictions.csv'
     
     auc, mae = analyze_predictions(filename)
     

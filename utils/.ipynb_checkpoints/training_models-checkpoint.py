@@ -208,7 +208,7 @@ class TrainingModel(pl.LightningModule):
                 prediction_df.to_csv(
                     Path(wandb.run.dir).parent
                     / "data"
-                    / f"dataloader_{i}_predictions.csv",
+                    / f"dataloader_{i}_potassium_predictions.csv",
                     index=False,
                 )
             if self.save_predictions_path is not None:
@@ -229,7 +229,7 @@ class TrainingModel(pl.LightningModule):
                 print(
                     "WandB is not active and self.save_predictions_path is None. Predictions will be saved to the directory this script is being run in."
                 )
-                prediction_df.to_csv(f"dataloader_{i}_predictions.csv", index=False)
+                prediction_df.to_csv(f"dataloader_{i}_potassium_predictions.csv", index=False)
 
     def log_step(self, step_type, labels, output_tensor, loss):
         self.step_loss = (step_type, loss.detach().item())

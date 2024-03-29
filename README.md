@@ -6,7 +6,7 @@
 
 1. Prerequisites
 
-    Ensure all ECG files are stored as *.npy in a single flat directory.
+    Ensure all ECG files are stored as *.npy with shape (5000, 12) in a single flat directory.
     Accompany these files with a manifest CSV file in the same directory.
 
 
@@ -21,6 +21,21 @@
 
 
 ## II. Inference
+
+
+### For 12-Lead ECG
+
+
+1. use predict_potassium_12lead.py to get the potassium level prediction.
+
+2. Edit data_path and manifest_path and run the predict_potassium.py script.
+
+3. Upon completion, a file named "dataloader_0_predictions.csv" will be saved in the same directory. This file contains the inference results "preds" from the model.
+
+4. Use generate_result.py to get the performance metric and figure.
+
+
+### For Single Lead ECG
 
 
 ### A. ECG preprocessing and segmentation
@@ -42,11 +57,11 @@ output_path = "path/to/output_path"  # Output path for segmented ECGs
 ### B. potassium regression model
 
 
-1. use predict_potassium.py to get the potassium level prediction.
+1. use predict_potassium_1lead.py to get the potassium level prediction.
 
 2. Edit data_path and manifest_path and run the predict_potassium.py script.
 
-3. Upon completion, a file named "dataloader_0_potassium_predictions.csv" will be saved in the same directory. This file contains the inference results "preds" from the model.
+3. Upon completion, a file named "dataloader_0_predictions.csv" will be saved in the same directory. This file contains the inference results "preds" from the model.
 
 4. Use generate_result.py to get the performance metric and figure.
 
