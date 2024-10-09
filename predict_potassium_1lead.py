@@ -22,33 +22,23 @@ test_ds = ECGSingleLeadDataset(
 
 # Wrap the dataset in a dataloader to handle batching and multithreading.
 test_dl = DataLoader(
-    test_ds, num_workers=16, batch_size=512, drop_last=False, shuffle=False
+    test_ds, 
+    num_workers=16, 
+    batch_size=512, 
+    drop_last=False, 
+    shuffle=False
 )
 
 # +
-# Initialize the "backbone", the core model weights that will act on the data.
 backbone = EffNet()
 
 model = RegressionModel(backbone)
 # -
 
-# We need load the pretrained weights from a file, then initialize the model
-# with them using load_state_dict. If all goes well, the message will say:
-# <All keys matched successfully>
-weights = torch.load("model_best_mae_5seconds_length_stratified_sampling.pt")
+weights = torch.load("model_single_lead_5seconds_length.pt")
 print(model.load_state_dict(weights))
 
-# Initialize a pl.Trainer object (identical to the one in train.py), and
-# call trainer.predict() to run inference.
-
 # +
-# A file named "predictions.csv" will be saved to the directory the script was run in.
-
 trainer = Trainer(accelerator="gpu", devices=1)
 
 trainer.predict(model, dataloaders=test_dl)
-# -
-
-
-
-

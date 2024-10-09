@@ -21,7 +21,11 @@ def append_noise_predictions_to_manifest(data_path, manifest_path, weights_path)
 
     # Wrap the dataset in a dataloader
     test_dl = DataLoader(
-        test_ds, num_workers=16, batch_size=512, drop_last=False, shuffle=False
+        test_ds, 
+        num_workers=16, 
+        batch_size=512, 
+        drop_last=False, 
+        shuffle=False
     )
 
     # Initialize the backbone model
@@ -58,11 +62,11 @@ def append_noise_predictions_to_manifest(data_path, manifest_path, weights_path)
 
 if __name__ == "__main__":
 
-    data_path="/workspace/data/drives/sdc/ecg_database/apple_watch_study/5seconds_250samples_MW_array_applewatch/"
+    data_path="/your/wearable/ecg/data path/"
 
-    manifest_path="/workspace/imin/applewatch_potassium/manifest_apple_ecg_5seconds_250samples_MV.csv"
+    manifest_path="manifest"
     
-    weights_path = "model_best_auc_noise_classifier.pt"
+    weights_path = "model_noise_classifier.pt"
     
     append_noise_predictions_to_manifest(data_path, manifest_path, weights_path)
 

@@ -25,30 +25,22 @@ test_ds = ECGDataset(
 
 # Wrap the dataset in a dataloader to handle batching and multithreading.
 test_dl = DataLoader(
-    test_ds, num_workers=16, batch_size=256, drop_last=False, shuffle=False
+    test_ds, 
+    num_workers=16, 
+    batch_size=256, 
+    drop_last=False, 
+    shuffle=False
 )
 
 # Initialize the "backbone", the core model weights that will act on the data.
 backbone = EffNet(input_channels=12, output_neurons=1)
 
-# Pass the backbone to a wrapper from cvair.training_models, like in
-# the training script.
 model = RegressionModel(backbone)
 
-# We need load the pretrained weights from a file, then initialize the model
-# with them using load_state_dict. If all goes well, the message will say:
-# <All keys matched successfully>
-weights = torch.load("/workspace/imin/ecg_K_regression/wandb/run-20240329_210320-3h243gsk/weights/model_best_epoch_val_mae.pt")
+weights = torch.load("model_12_lead.pt")
 print(model.load_state_dict(weights))
 
-# Initialize a pl.Trainer object (identical to the one in train.py), and
-# call trainer.predict() to run inference.
-
-
-
-
 # +
-# A file named "predictions.csv" will be saved to the directory the script was run in.
 trainer = Trainer(accelerator="gpu", devices=1)
 
 trainer.predict(model, dataloaders=test_dl)

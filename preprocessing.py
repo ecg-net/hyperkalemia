@@ -124,7 +124,7 @@ def segmentation(data_path, manifest_path, output_path, length, steps):
 
 # %%
 if __name__ == "__main__":
-    npy_directory = "/workspace/data/drives/sdc/ecg_database/2024_new_ecg_xmls_from_melvin/" #ecg folder for entire database
+    npy_directory = "ecg folder for entire database" 
     n = 100000  # the number of ecg for calculating mean and std
     
     print('Calculating ECG means and stds........')
