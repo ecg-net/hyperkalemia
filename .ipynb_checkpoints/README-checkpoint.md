@@ -1,4 +1,4 @@
-## potassium validation
+# Kardio-Net: A Deep Learning Model for Predicting Serum Potassium Levels from Apple Watch ECG in ESRD Patients
 
 
 ### I. Input preparation
