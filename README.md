@@ -80,6 +80,16 @@
 4. Use generate_result.py to get the performance metric and figure.
 <!-- #endregion -->
 
+
+
+<!-- #region -->
+
+
+Paper Link: https://www.sciencedirect.com/science/article/pii/S2405500X24007527
+
+Citation: I-Min Chiu, Po-Jung Wu, Huan Zhang, J. Weston Hughes, Albert J. Rogers, Laleh Jalilian, Marco Perez, Chun-Hung Richard Lin, Chien-Te Lee, James Zou, David Ouyang, Serum Potassium Monitoring Using AI-Enabled Smartwatch Electrocardiograms, JACC: Clinical Electrophysiology, 2024, ISSN 2405-500X, https://doi.org/10.1016/j.jacep.2024.07.023.
+<!-- #endregion -->
+
 ```python
 
 ```
